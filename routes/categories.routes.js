@@ -1,71 +1,67 @@
 const express = require('express'),
-      faker = require('faker'),
       router = express.Router(),
-      type = "category"
+      CategoryService = require('../services/categories.service'),
+      service = new CategoryService;
 
 router.get('/', (req, res) => {
-  const categories = [];
-  const limit = req.query.size || 10;
-  for(let i = 0; i < limit; i++) {
-    categories.push({
-      type,
-      id: faker.datatype.uuid(),
-        attributes: {
-          name: faker.commerce.department(),
-          description: faker.lorem.sentence(),
-          image: faker.image.imageUrl()
-        }
-    });
-  }
-  res.json({
-    data: categories
-  });
+  const categories = service.find()
+  res
+    .status(200)
+    .json({
+      data: categories
+    })
 });
 
 router.get('/:id', (req, res) => {
-  res.json({
-    data: {
-      type,
-      id: req.params.id,
-      attributes: {
-        name: faker.commerce.department(),
-        description: faker.lorem.sentence(),
-        image: faker.image.imageUrl()
-      }
-    }
-  });
+  const { id } = req.params;
+  const category = service.findOne(id)
+  if(!category) {
+    res
+      .status(404)
+      .json({
+        error: {
+          status: 404,
+          title: "not found",
+          details: "category not found"
+        }
+      })
+  }
+  res
+    .status(200)
+    .json({
+      data: category
+    })
 });
 
 router.post('/', (req, res) => {
   const { body } = req
-  res.json({
-    data: {
-      type,
-      id: faker.datatype.uuid(),
-      attributes: body
-    }
-  })
+  const newCategory = service.create(body)
+  res
+    .status(201)
+    .json({
+      data: newCategory
+    })
 });
 
 router.patch('/:id', (req, res) => {
-  const { body } = req
-  res.json({
-    data: {
-      type,
-      id: req.params.id,
-      attributes: body
-    }
-  })
+  const body = req.body;
+  const { id } = req.params;
+  const category = service.update(id, body)
+  res
+    .status(200)
+    .json({
+      data: category
+    })
 });
 
 router.delete('/:id', (req, res) => {
   const { id } = req.params
-  res.json({
-    data: {
-      type,
-      id
-    }
-  })
+  const category = service.destroy(id)
+  res
+    .status(204)
+    .json({
+      id: category
+    })
 });
 
 

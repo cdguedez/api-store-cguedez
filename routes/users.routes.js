@@ -1,77 +1,65 @@
 const express = require('express'),
-      faker = require('faker'),
       router = express.Router(),
-      type = "users";
+      UsersService =require('../services/users.service'),
+      service = new UsersService;
 
 router.get('/', (req, res) => {
-  const users = [];
-  const limit = req.params.size || 10;
-  for (let i = 0; i < limit; i++) {
-    users.push({
-      type,
-      id: faker.datatype.uuid(),
-      attributes: {
-        firstName: faker.name.firstName(),
-        lastName: faker.name.lastName(),
-        role: faker.name.jobTitle(),
-        phone: faker.phone.phoneNumber()
-      }
+  const users = service.find();
+  res
+    .status(200)
+    .json({
+      data: users
     })
-  }
-  res.json({
-    data: users
-  })
 });
 
 router.get('/:id', (req, res) => {
   const { id } = req.params
-  res.json({
-    data: {
-      type,
-      id,
-      attributes: {
-        firstName: faker.name.firstName(),
-        lastName: faker.name.lastName(),
-        role: faker.name.jobTitle(),
-        phone: faker.phone.phoneNumber()
+  const user = service.findOne(id)
+  !user ?
+  res
+    .status(404)
+    .json({
+      error: {
+        message: 'User not found'
       }
-    }
-  })
+    })
+  :
+  res
+    .status(200)
+    .json({
+      data: user
+    })
 });
 
 router.post('/', (req, res) => {
   const body = req.body;
-  const id = faker.datatype.uuid()
-  res.status(201).json({
-    data: {
-      type,
-      id,
-      attributes: body
-    }
-  })
+  const newUser = service.create(body)
+  res
+    .status(201)
+    .json({
+      data: newUser
+    })
 });
 
 router.patch('/:id', (req, res) => {
-  const { id } = req.params
+  const { id } = req.params;
   const body = req.body;
-  console.log(id, body)
-  res.json({
-    data: {
-      type,
-      id,
-      attributes: body
-    }
-  })
+  const user = service.update(id, body);
+  res
+    .status(200)
+    .json({
+      data: user
+    })
 });
 
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
-  res.json({
-    data: {
-      type,
-      id
-    }
-  })
+  const user = service.destroy(id)
+  res
+    .status(204)
+    .json({
+      id: user
+    })
 })
 
 module.exports = router;

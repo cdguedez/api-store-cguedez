@@ -4,8 +4,8 @@ class ProductService {
 
   constructor() {
     this.products = [];
-    this.type = "products"
-    this.generate()
+    this.type = "products";
+    this.generate();
   }
 
   generate() {
@@ -22,7 +22,6 @@ class ProductService {
         }
       })
     }
-    return
   }
 
   create(data) {
@@ -32,8 +31,8 @@ class ProductService {
       id,
       attributes: data
     }
-    this.products.push(newProduct)
-    return newProduct
+    this.products.push(newProduct);
+    return newProduct;
   }
 
   find() {
@@ -41,7 +40,8 @@ class ProductService {
   }
 
   findOne(id) {
-    return this.products.find(item => item.id === id);
+    const product = this.products.find(item => item.id === id);
+    return product;
   }
   update(id, data) {
     const indexProduct = this.products.findIndex(item => item.id === id);
@@ -61,8 +61,8 @@ class ProductService {
     if(indexProduct === -1) {
       throw new Error('product not found')
     }
-    this.products.splice(indexProduct, 1)
-    return id
+    this.products.splice(indexProduct, 1);
+    return id;
   }
 
 }
