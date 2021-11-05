@@ -58,7 +58,7 @@ router.delete('/:id', (req, res) => {
   const { id } = req.params
   const category = service.destroy(id)
   res
-    .status(204)
+    .status(200)
     .json({
       id: category
     })
