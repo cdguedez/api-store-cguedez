@@ -84,7 +84,6 @@ router.patch('/:id', async (req, res) => {
     const { id } = req.params;
     const body = req.body;
     const product = await service.update(id, body);
-    console.log(product)
     res
       .status(200)
       .json({
