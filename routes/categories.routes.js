@@ -34,8 +34,8 @@ router.get('/:id', async (req, res) => {
         .json({
           error: {
             status: 404,
-            title: "not found",
-            details: "category not found"
+            title: 'not found',
+            details: `Category with id ${id} not found`
           }
         });
     }
@@ -110,7 +110,7 @@ router.delete('/:id', async (req, res) => {
       .status(200)
       .json({
         id: category
-      })
+      });
   } catch (error) {
     res
       .status(404)
@@ -120,7 +120,7 @@ router.delete('/:id', async (req, res) => {
           title: "not fount",
           details: error.message
         }
-      })
+      });
   }
 });
 
