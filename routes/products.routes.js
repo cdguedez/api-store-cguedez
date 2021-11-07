@@ -3,7 +3,7 @@ const express = require('express'),
       ProductService = require('../services/product.service'),
       service = new ProductService;
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
     const products = await service.find();
     res
@@ -12,52 +12,25 @@ router.get('/', async (req, res) => {
         data: products
       });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        error: {
-          status: 500,
-          title: 'Internal Server Error',
-          details: error.message
-        }
-      });
+    next(error)
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
     const product = await service.findOne(id);
-    if(!product) {
-      res
-        .status(404)
-        .json({
-          error: {
-            status: 404,
-            title: 'Not Found',
-            details: `Product with id ${id} not found`
-          }
-        });
-    }
     res
       .status(200)
       .json({
         data: product
       });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        error: {
-          status: 500,
-          title: 'Internal Server Error',
-          details: error.message
-        }
-      });
+    next(error)
   }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   try {
     const { body } = req;
     const newProduct = await service.create(body);
@@ -67,19 +40,11 @@ router.post('/', async (req, res) => {
         data: newProduct
       });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        error: {
-          status: 500,
-          title: 'Internal Server Error',
-          details: error.message
-        }
-      });
+    next(error)
   }
 })
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
     const body = req.body;
@@ -90,19 +55,11 @@ router.patch('/:id', async (req, res) => {
         data: product
       })
   } catch (error) {
-    res
-      .status(404)
-      .json({
-        error: {
-          status: 404,
-          title: `Product not found`,
-          details: error.message
-        }
-      });
+    next(error)
   }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', async (req, res, next) => {
   try {
     const { id } = req.params
     const product = await service.destroy(id)
@@ -112,15 +69,7 @@ router.delete('/:id', async (req, res) => {
         id: product
       });
   } catch (error) {
-    res
-      .status(404)
-      .json({
-        error: {
-          status: 404,
-          title: "not fount",
-          details: error.message
-        }
-      });
+    next(error)
   }
 });
 

@@ -3,7 +3,7 @@ const express = require('express'),
       UsersService =require('../services/users.service'),
       service = new UsersService;
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
     const users = await service.find();
     res
@@ -12,52 +12,25 @@ router.get('/', async (req, res) => {
         data: users
       });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        error: {
-          status: 500,
-          title: 'Internal Server Error',
-          details: error.message
-        }
-      })
+    next(error)
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res, next) => {
   try {
     const { id } = req.params
     const user = await service.findOne(id)
-    if(!user) {
-      return res
-        .status(404)
-        .json({
-          error: {
-            status: 404,
-            title: 'Not Found',
-            details: `User with id ${id} not found`
-          }
-        })
-    }
     res
       .status(200)
       .json({
         data: user
       });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        error: {
-          status: 500,
-          title: 'Internal Server Error',
-          details: error.message
-        }
-      })
+    next(error)
   }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   try {
     const body = req.body;
     const newUser = await service.create(body)
@@ -67,19 +40,11 @@ router.post('/', async (req, res) => {
         data: newUser
       });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        error: {
-          status: 500,
-          title: 'Internal Server Error',
-          details: error.message
-        }
-      })
+    next(error)
   }
 });
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
     const { body } = req;
@@ -90,37 +55,21 @@ router.patch('/:id', async (req, res) => {
         data: user
       })
   } catch (error) {
-    res
-      .status(404)
-      .json({
-        error: {
-          status: 404,
-          title: "User not found",
-          details: error.message
-        }
-      })
+    next(error)
   }
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const user = service.destroy(id);
+    const { id } =  req.params
+    const user = await service.destroy(id)
     res
       .status(200)
       .json({
-        id: user
-      });
+        data: user
+      })
   } catch (error) {
-    res
-      .status(404)
-      .json({
-        error: {
-          status: 404,
-          title: "not fount",
-          details: error.message
-        }
-      });
+    next(error)
   }
 })
 

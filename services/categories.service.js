@@ -1,5 +1,5 @@
-const faker = require('faker');
-
+const faker = require('faker'),
+      boom = require('@hapi/boom')
 class CategoryService {
 
   constructor() {
@@ -9,7 +9,7 @@ class CategoryService {
   }
 
   generate() {
-    const limit = 100;
+    const limit = 1;
     for (let i = 0; i < limit; i++) {
       this.categories.push({
         type: this.type,
@@ -34,18 +34,24 @@ class CategoryService {
   }
 
   async find() {
+    if(this.categories.length === 0) {
+      throw boom.notFound('Not exist categories')
+    }
     return this.categories;
   }
 
   async findOne(id) {
     const category = this.categories.find(item => item.id === id);
+    if(!category) {
+      throw boom.notFound('Category not found')
+    }
     return category;
   }
 
   async update(id, data) {
     const indexCategory = this.categories.findIndex(item => item.id === id);
     if(indexCategory === -1) {
-      throw new Error('Category not found');
+      throw boom.notFound('Category not found')
     }
     const attributes = this.categories[indexCategory].attributes;
     this.categories[indexCategory].attributes = {
@@ -58,7 +64,7 @@ class CategoryService {
   async destroy(id) {
     const indexCategory = this.categories.findIndex(item => item.id === id);
     if(indexCategory === -1) {
-      throw new Error('Category not found');
+      throw boom.notFound('Category not found')
     }
     this.categories.splice(indexCategory, 1);
     return id;
