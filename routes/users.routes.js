@@ -3,63 +3,74 @@ const express = require('express'),
       UsersService =require('../services/users.service'),
       service = new UsersService;
 
-router.get('/', (req, res) => {
-  const users = service.find();
-  res
-    .status(200)
-    .json({
-      data: users
-    })
+router.get('/', async (req, res, next) => {
+  try {
+    const users = await service.find();
+    res
+      .status(200)
+      .json({
+        data: users
+      });
+  } catch (error) {
+    next(error)
+  }
 });
 
-router.get('/:id', (req, res) => {
-  const { id } = req.params
-  const user = service.findOne(id)
-  !user ?
-  res
-    .status(404)
-    .json({
-      error: {
-        message: 'User not found'
-      }
-    })
-  :
-  res
-    .status(200)
-    .json({
-      data: user
-    })
+router.get('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const user = await service.findOne(id)
+    res
+      .status(200)
+      .json({
+        data: user
+      });
+  } catch (error) {
+    next(error)
+  }
 });
 
-router.post('/', (req, res) => {
-  const body = req.body;
-  const newUser = service.create(body)
-  res
-    .status(201)
-    .json({
-      data: newUser
-    })
+router.post('/', async (req, res, next) => {
+  try {
+    const body = req.body;
+    const newUser = await service.create(body)
+    res
+      .status(201)
+      .json({
+        data: newUser
+      });
+  } catch (error) {
+    next(error)
+  }
 });
 
-router.patch('/:id', (req, res) => {
-  const { id } = req.params;
-  const body = req.body;
-  const user = service.update(id, body);
-  res
-    .status(200)
-    .json({
-      data: user
-    })
+router.patch('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { body } = req;
+    const user = await service.update(id, body);
+    res
+      .status(200)
+      .json({
+        data: user
+      })
+  } catch (error) {
+    next(error)
+  }
 });
 
-router.delete('/:id', (req, res) => {
-  const { id } = req.params;
-  const user = service.destroy(id)
-  res
-    .status(200)
-    .json({
-      id: user
-    })
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const { id } =  req.params
+    const user = await service.destroy(id)
+    res
+      .status(200)
+      .json({
+        data: user
+      })
+  } catch (error) {
+    next(error)
+  }
 })
 
 module.exports = router;

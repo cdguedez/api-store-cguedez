@@ -3,7 +3,7 @@ const express = require('express'),
       CategoryService = require('../services/categories.service'),
       service = new CategoryService;
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
     const categories = await service.find()
     res
@@ -12,52 +12,25 @@ router.get('/', async (req, res) => {
         data: categories
       });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        error: {
-          status: 500,
-          title: "internal server error",
-          details: "internal server error"
-        }
-      });
+    next(error)
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
     const category = await service.findOne(id);
-    if(!category) {
-      return res
-        .status(404)
-        .json({
-          error: {
-            status: 404,
-            title: 'not found',
-            details: `Category with id ${id} not found`
-          }
-        });
-    }
-    return res
+    res
       .status(200)
       .json({
         data: category
       });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        error: {
-          status: 500,
-          title: "internal server error",
-          details: "internal server error"
-        }
-      });
+    next(error)
   }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   try {
     const { body } = req
     const newCategory = await service.create(body)
@@ -67,19 +40,11 @@ router.post('/', async (req, res) => {
         data: newCategory
       })
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        error: {
-          status: 500,
-          title: "internal server error",
-          details: "internal server error"
-        }
-      })
+    next(error)
   }
 });
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', async (req, res, next) => {
   try {
     const body = req.body;
     const { id } = req.params;
@@ -90,19 +55,11 @@ router.patch('/:id', async (req, res) => {
         data: category
       })
   } catch (error) {
-    res
-      .status(404)
-      .json({
-        error: {
-          status: 404,
-          title: "not found",
-          details: error.message
-        }
-      })
+    next(error)
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', async (req, res, next) => {
   try {
     const { id } = req.params
     const category = await service.destroy(id)
@@ -112,15 +69,7 @@ router.delete('/:id', async (req, res) => {
         id: category
       });
   } catch (error) {
-    res
-      .status(404)
-      .json({
-        error: {
-          status: 404,
-          title: "not fount",
-          details: error.message
-        }
-      });
+    next(error)
   }
 });
 
