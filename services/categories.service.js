@@ -9,7 +9,7 @@ class CategoryService {
   }
 
   generate() {
-    const limit = 1;
+    const limit = 5;
     for (let i = 0; i < limit; i++) {
       this.categories.push({
         type: this.type,
