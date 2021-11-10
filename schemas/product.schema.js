@@ -9,8 +9,8 @@ const id  = joi.string().uuid(),
 const createProduct = joi.object({
   name : name.required(),
   price: price.required(),
-  image: image,
-  description: description,
+  image,
+  description
 })
 
 const updatedProduct = joi.object({
