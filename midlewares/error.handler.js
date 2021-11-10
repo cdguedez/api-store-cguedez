@@ -1,13 +1,11 @@
 class Middleware {
 
   static errorLog(err, req, res, next) {
-    console.log('errorLog')
     console.error(err);
     next(err)
   }
 
   static errorHandler (err, req, res, next) {
-    console.log('errorHandler')
     res
       .status(500)
       .json({

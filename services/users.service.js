@@ -10,7 +10,7 @@ class UsersService {
   }
 
   generate() {
-    const limit = 1;
+    const limit = 5;
     for (let i = 0; i < limit; i++) {
       this.users.push({
         type: this.type,
