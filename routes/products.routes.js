@@ -1,6 +1,8 @@
 const express = require('express'),
       router = express.Router(),
       ProductService = require('../services/product.service'),
+      validator = require('../midlewares/validator.handler'),
+      { getProduct, createProduct, updatedProduct, deletedProduct } = require('../schemas/product.schema'),
       service = new ProductService;
 
 router.get('/', async (req, res, next) => {
@@ -16,7 +18,9 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id',
+validator.validatorHandler(getProduct, 'params'),
+async (req, res, next) => {
   try {
     const { id } = req.params;
     const product = await service.findOne(id);
@@ -30,7 +34,9 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/',
+validator.validatorHandler(createProduct, 'body'),
+async (req, res, next) => {
   try {
     const { body } = req;
     const newProduct = await service.create(body);
@@ -44,7 +50,10 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.patch('/:id', async (req, res, next) => {
+router.patch('/:id',
+validator.validatorHandler(getProduct, 'params'),
+validator.validatorHandler(updatedProduct, 'body'),
+async (req, res, next) => {
   try {
     const { id } = req.params;
     const body = req.body;
@@ -59,7 +68,10 @@ router.patch('/:id', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id',
+
+validator.validatorHandler(deletedProduct, 'params'),
+async (req, res, next) => {
   try {
     const { id } = req.params
     const product = await service.destroy(id)
