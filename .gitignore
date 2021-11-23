@@ -165,5 +165,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-docker.compose.yml
+docker-compose.yml
+mysql_data
+postgres_data
 # End of https://www.toptal.com/developers/gitignore/api/node,linux,windows
