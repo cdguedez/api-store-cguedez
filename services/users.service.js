@@ -1,5 +1,6 @@
 const faker = require('faker'),
-      boom = require('@hapi/boom');
+      boom = require('@hapi/boom'),
+      pool = require('../libs/postgres');
 
 class UsersService {
 
@@ -7,6 +8,8 @@ class UsersService {
     this.users = [];
     this.type = "users";
     this.generate();
+    this.pool = pool;
+    this.pool.on('error', (err) => console.log(err))
   }
 
   generate() {
@@ -37,10 +40,16 @@ class UsersService {
   }
 
   async find() {
-    if(this.users.length === 0) {
-      throw boom.notFound('Not exist users')
-    }
-    return this.users;
+    // if(this.users.length === 0) {
+    //   throw boom.notFound('Not exist users')
+    // }
+    // return this.users;
+    // const client = await getConnect();
+    // const res = await client.query('SELECT * from tasks');
+    // return res.rows;
+    const query = 'SELECT * FROM tasks';
+    const res = await this.pool.query(query);
+    return res.rows;
   }
 
   async findOne(id) {
