@@ -1,6 +1,7 @@
 const faker = require('faker'),
       boom = require('@hapi/boom'),
-      pool = require('../libs/postgres');
+      sequelize = require('../libs/sequelize');
+      // pool = require('../libs/postgres');
 
 class UsersService {
 
@@ -8,8 +9,8 @@ class UsersService {
     this.users = [];
     this.type = "users";
     this.generate();
-    this.pool = pool;
-    this.pool.on('error', (err) => console.log(err))
+    // this.pool = pool;
+    // this.pool.on('error', (err) => console.log(err))
   }
 
   generate() {
@@ -40,16 +41,19 @@ class UsersService {
   }
 
   async find() {
+    // obteniendo data del array generado en this.generate
     // if(this.users.length === 0) {
     //   throw boom.notFound('Not exist users')
     // }
     // return this.users;
+    // obteniendo data de la conexion con pg usando postgres
     // const client = await getConnect();
     // const res = await client.query('SELECT * from tasks');
     // return res.rows;
+    // obteniendo data usando sequelize
     const query = 'SELECT * FROM tasks';
-    const res = await this.pool.query(query);
-    return res.rows;
+    const [data] = await sequelize.query(query);
+    return data;
   }
 
   async findOne(id) {
