@@ -1,6 +1,6 @@
 const faker = require('faker'),
       boom = require('@hapi/boom'),
-      sequelize = require('../libs/sequelize');
+      { models } = require('../libs/sequelize');
       // pool = require('../libs/postgres');
 
 class UsersService {
@@ -51,9 +51,12 @@ class UsersService {
     // const res = await client.query('SELECT * from tasks');
     // return res.rows;
     // obteniendo data usando sequelize
-    const query = 'SELECT * FROM tasks';
-    const [data] = await sequelize.query(query);
-    return data;
+    // const query = 'SELECT * FROM tasks';
+    // const [data] = await sequelize.query(query);
+    // return data;
+    // usando sequelize
+    const users = await models.User.findAll();
+    return users
   }
 
   async findOne(id) {
