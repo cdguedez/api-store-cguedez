@@ -10,8 +10,8 @@ app.use(express.json());
 app.use(cors());
 new RouterApi(app);
 app.use(Middleware.errorLog);
-app.use(Middleware.boomErrorHandler);
 app.use(Middleware.sqlErrorHamdler);
+app.use(Middleware.boomErrorHandler);
 app.use(Middleware.errorHandler);
 
 app.listen(port, () => {

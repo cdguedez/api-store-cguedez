@@ -32,7 +32,6 @@ class Middleware {
 
   static sqlErrorHamdler(err, req, res, next) {
     if(err instanceof ValidationError) {
-      console.log(err)
       res
         .status(409)
         .json({

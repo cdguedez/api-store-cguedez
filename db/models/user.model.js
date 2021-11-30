@@ -6,7 +6,7 @@ const UserSchema = {
   id: {
     allowNull: false,
     autoIncrement: true,
-    primaryKey: true.valueOf,
+    primaryKey: true,
     type: DataTypes.INTEGER
   },
   email: {
