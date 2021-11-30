@@ -30,13 +30,15 @@ class UsersService {
   }
 
   async create(data) {
-    const id = faker.datatype.uuid()
-    const newUser = {
-      type: this.type,
-      id,
-      attributes: data
-    }
-    this.users.push(newUser);
+    // const id = faker.datatype.uuid()
+    // const newUser = {
+    //   type: this.type,
+    //   id,
+    //   attributes: data
+    // }
+    // this.users.push(newUser);
+    // return newUser;
+    const newUser = await models.User.create(data);
     return newUser;
   }
 
@@ -60,9 +62,13 @@ class UsersService {
   }
 
   async findOne(id) {
-    const user = this.users.find(item => item.id === id);
+    // const user = this.users.find(item => item.id === id);
+    // if(!user) {
+    //   throw boom.notFound('User not found')
+    // }
+    const user = await models.User.findOne({ where: {id} });
     if(!user) {
-      throw boom.notFound('User not found')
+      throw boom.notFound('User not found');
     }
     return user;
   }

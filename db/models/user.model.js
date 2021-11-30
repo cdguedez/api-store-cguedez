@@ -19,6 +19,7 @@ const UserSchema = {
   },
   userName: {
     allowNull: false,
+    unique: true,
     type: DataTypes.STRING(100),
     field: 'username'
   },
