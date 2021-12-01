@@ -23,6 +23,11 @@ const UserSchema = {
     type: DataTypes.STRING(100),
     field: 'username'
   },
+  role: {
+    allowNull: false,
+    type: DataTypes.STRING(50),
+    defaultValue: 'customer'
+  },
   password: {
     allowNull: false,
     type: DataTypes.STRING(100)
