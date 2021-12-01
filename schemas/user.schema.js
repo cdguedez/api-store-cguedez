@@ -1,36 +1,36 @@
 const joi = require('joi')
 
-const id = joi.string().uuid(),
-      firstName = joi.string().min(2).max(30),
-      lastName = joi.string().min(2).max(30),
-      role = joi.string().valid('admin', 'user'),
-      phone = joi.number().integer().min(1000000000).max(9999999999);
+const id = joi.number(),
+      email = joi.string().email(),
+      userName = joi.string().min(5).max(20),
+      password = joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+      role = joi.string().min(5);
 
 const createUser = joi.object({
-  firstName: firstName.required(),
-  lastName: lastName.required(),
+  email: email.required(),
+  userName: userName.required(),
+  password: password.required(),
   role: role.required(),
-  phone
 });
 
 const updateUser = joi.object({
-  firstName,
-  lastName,
-  role,
-  phone
+  userName,
+  email,
+  password,
+  role
 });
 
 const getUser = joi.object({
-  id: id.required()
+  id: id.required(),
 });
 
 const deleteUser = joi.object({
-  id: id.required()
+  id: id.required(),
 });
 
 module.exports = {
   createUser,
   getUser,
   updateUser,
-  deleteUser
+  deleteUser,
 }

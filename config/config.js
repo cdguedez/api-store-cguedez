@@ -6,7 +6,8 @@ const config = {
   dbPass: process.env.DB_PASS,
   dbHost: process.env.DB_HOST,
   dbName: process.env.DB_NAME,
-  dbPort: process.env.DB_PORT
+  dbPort: process.env.DB_PORT,
+  dialect: process.env.DB
 }
 
 module.exports = config;

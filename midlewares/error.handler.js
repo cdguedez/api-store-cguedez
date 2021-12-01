@@ -1,3 +1,4 @@
+const { ValidationError } = require('sequelize');
 class Middleware {
 
   static errorLog(err, req, res, next) {
@@ -10,8 +11,8 @@ class Middleware {
       .status(500)
       .json({
         error: {
-          status: 500,
-          title: "internal server error",
+          statusCode: 500,
+          message: "internal server error",
           details: err.stack
         }
       })
@@ -24,6 +25,19 @@ class Middleware {
         .status(output.statusCode)
         .json({
           error: output.payload
+        })
+    }
+    next(err)
+  }
+
+  static sqlErrorHamdler(err, req, res, next) {
+    if(err instanceof ValidationError) {
+      res
+        .status(409)
+        .json({
+          statusCode: 409,
+          message: err.name,
+          details: err.errors[0].message
         })
     }
     next(err)
