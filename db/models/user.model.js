@@ -44,7 +44,6 @@ const UserSchema = {
     defaultValue: Sequelize.NOW
   }
 }
-
 class User extends Model {
   static associate() {
     // associate

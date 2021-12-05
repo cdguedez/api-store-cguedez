@@ -1,8 +1,8 @@
 const joi = require('joi');
 
-const id = joi.string().uuid(),
+const id = joi.number(),
     name = joi.string().min(3).max(50),
-    description = joi.string().min(3).max(50);
+    description = joi.string().min(3).max(100);
 
 const createCategory = joi.object({
   name: name.required(),

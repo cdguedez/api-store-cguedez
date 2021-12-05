@@ -14,7 +14,6 @@ class UsersService {
   }
 
   async find() {
-    // usando sequelize
     const users = await models.User.findAll();
     return users;
   }

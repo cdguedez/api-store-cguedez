@@ -11,7 +11,9 @@ module.exports = {
       password: UserSchema.password,
       createdAt: UserSchema.createdAt,
       updatedAt: UserSchema.updatedAt,
-    })
+    }, {
+      collate: 'utf8_unicode_ci'
+    });
   },
 
   down: async (queryInterface) => {
