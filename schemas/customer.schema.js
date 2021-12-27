@@ -1,19 +1,32 @@
 const Joi = require('joi');
 
-const id = Joi.number(),
+const id = Joi.number().integer(),
+      userId = Joi.number().integer(),
       firstName = Joi.string(),
       lastName = Joi.string(),
       dateOfBirth = Joi.date(),
-      gender = Joi.string()
+      gender = Joi.string(),
+      email = Joi.string().email(),
+      userName = Joi.string().min(5).max(20),
+      password = Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
 
 const createCustomer = Joi.object({
   firstName: firstName.required(),
   lastName,
   dateOfBirth,
-  gender
+  gender,
+  /** With userId */
+  // userId: userId.required()
+  /**With user data */
+  user: Joi.object({
+    email: email.required(),
+    userName: userName.required(),
+    password: password.required()
+  })
 });
 
 const updateCsutomer = Joi.object({
+  userId: userId.required(),
   firstName,
   lastName,
   dateOfBirth,
