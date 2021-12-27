@@ -1,6 +1,7 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
+const { USERS_TABLE } = require('../models/user.model');
 const CUSTOMERS_TABLE = 'customers';
-const customerSchema = {
+const CustomerSchema = {
   id: {
     allowNull: false,
     autoIncrement: true,
@@ -25,6 +26,17 @@ const customerSchema = {
   gender: {
     allowNull: true,
     type: DataTypes.STRING,
+  },
+  userId: {
+    allowNull: false,
+    type: DataTypes.INTEGER,
+    field: 'user_id',
+    references: {
+      model: USERS_TABLE,
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'NO ACTION'
   },
   createdAt: {
     allowNull: false,
@@ -53,4 +65,4 @@ class Customer extends Model {
   }
 }
 
-module.exports = { CUSTOMERS_TABLE, customerSchema, Customer }
+module.exports = { CUSTOMERS_TABLE, CustomerSchema, Customer }

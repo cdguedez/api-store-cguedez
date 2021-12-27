@@ -1,14 +1,17 @@
 'use strict';
 
-const { CUSTOMERS_TABLE, customerSchema } = require('../models/customer.model')
+const { CUSTOMERS_TABLE, CustomerSchema } = require('../models/customer.model')
 module.exports = {
   up: async (queryInterface) => {
     await queryInterface.createTable(CUSTOMERS_TABLE, {
-      id: customerSchema.id,
-      firstName: customerSchema.firstName,
-      lastName: customerSchema.lastName,
-      dateOfBirth: customerSchema.dateOfBirth,
-      gender: customerSchema.gender
+      id: CustomerSchema.id,
+      firstName: CustomerSchema.firstName,
+      lastName: CustomerSchema.lastName,
+      dateOfBirth: CustomerSchema.dateOfBirth,
+      gender: CustomerSchema.gender,
+      userId: CustomerSchema.userId,
+      createdAt: CustomerSchema.createdAt,
+      updatedAt: CustomerSchema.updatedAt
     }, {
       collate: 'utf8_unicode_ci'
     });
