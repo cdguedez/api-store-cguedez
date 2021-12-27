@@ -11,4 +11,11 @@ module.exports = {
       unique: true
     })
   },
+
+  down: async (queryInterface) => {
+    await queryInterface.changeColumn(CUSTOMERS_TABLE, 'user_id', {
+      unique: false,
+      type: DataTypes.INTEGER
+    });
+  }
 };
