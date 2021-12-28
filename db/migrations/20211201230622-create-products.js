@@ -9,6 +9,7 @@ module.exports = {
       name: ProductSchema.name,
       price: ProductSchema.price,
       description: ProductSchema.description,
+      categoryId: ProductSchema.categoryId,
       createdAt: ProductSchema.createdAt,
       updatedAt: ProductSchema.updatedAt
     }, {

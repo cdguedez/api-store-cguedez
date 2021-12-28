@@ -1,30 +1,33 @@
-const joi = require('joi')
+const Joi = require('joi')
 
-const id  = joi.number(),
-      name = joi.string().max(50),
-      price = joi.number().min(15).max(1000),
-      image = joi.string().uri(),
-      description = joi.string();
+const id  = Joi.number(),
+      name = Joi.string().max(50),
+      price = Joi.number().min(15).max(1000),
+      image = Joi.string().uri(),
+      description = Joi.string(),
+      categoryId = Joi.number().integer();
 
-const createProduct = joi.object({
+const createProduct = Joi.object({
+  categoryId: categoryId.required(),
   name : name.required(),
   price: price.required(),
-  image,
-  description
-})
-
-const updatedProduct = joi.object({
-  name,
-  price,
   image,
   description,
 })
 
-const getProduct = joi.object({
+const updatedProduct = Joi.object({
+  name,
+  price,
+  image,
+  description,
+  categoryId
+})
+
+const getProduct = Joi.object({
   id: id.required(),
 })
 
-const deletedProduct = joi.object({
+const deletedProduct = Joi.object({
   id: id.required(),
 })
 

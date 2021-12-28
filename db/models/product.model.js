@@ -1,4 +1,5 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
+const { CATEGORIES_TABLE } = require('./category.model')
 const PRODUCTS_TABLE = 'products';
 const ProductSchema = {
   id: {
@@ -19,6 +20,17 @@ const ProductSchema = {
   description: {
     type: DataTypes.TEXT
   },
+  categoryId: {
+    allowNull: false,
+    type: DataTypes.INTEGER,
+    field: 'category_id',
+    references: {
+      model: CATEGORIES_TABLE,
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'NO ACTION'
+  },
   createdAt: {
     allowNull: false,
     type: DataTypes.DATE,
@@ -34,8 +46,8 @@ const ProductSchema = {
 }
 
 class Product extends Model {
-  static associate() {
-    // associate
+  static associate(models) {
+    this.belongsTo(models.Category, { as: 'category' })
   }
   static config(sequelize) {
     return {
