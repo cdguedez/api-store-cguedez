@@ -168,4 +168,5 @@ $RECYCLE.BIN/
 docker-compose.yml
 mysql_data
 postgres_data
+package-lock.json
 # End of https://www.toptal.com/developers/gitignore/api/node,linux,windows
