@@ -1,23 +1,38 @@
-# Middlewares populares en Express.js - after validation Joi package
+# API-STORE-CDGUEDEZ
 
-A continuación te compartiré una lista de los middlewares más populares en Express.
+Esta es una api que simula un funcionamiento basico de una tienda virtual, la misma fue realizada con [nodejs](https://nodejs.org/es/) y [expressjs](https://expressjs.com/es/)
 
-## CORS
-Middleware para habilitar CORS (Cross-origin resource sharing) en nuestras rutas o aplicación. http://expressjs.com/en/resources/middleware/cors.html
+## Librerias utilizadas
+- Joi: funciona para crear nuestros schemas de los recursos que usaremos en nuestra api.
+- @hapi/boom: manejador de errores desarrollado por el framework @hapi
+- sequelize: ORM de javascript el cual configuramos para que funcione inicialmente con mysql (trabajo para que funcione dinamicamente en postgres y mysql)
 
-## Morgan
-Un logger de solicitudes HTTP para Node.js. http://expressjs.com/en/resources/middleware/morgan.html
+## Instalacion del proyecto
 
-## elmet
-Helmet nos ayuda a proteger nuestras aplicaciones Express configurando varios encabezados HTTP. ¡No es a prueba de balas de plata, pero puede ayudar! https://github.com/helmetjs/helmet
+Al ser una api realizada con nodejs necesitamos tener nodejs instalado en nuestro pc, la version con la que fue realizada fue la 14.17.1.
 
-## Express Debug
-Nos permite hacer debugging de nuestras aplicaciones en Express mediante el uso de un toolbar en la pagina cuando las estamos desarrollando. https://github.com/devoidfury/express-debug
+Puedes utilizar docker (originalmente asi fue como la cree)
 
-## Express Slash
-Este middleware nos permite evitar preocuparnos por escribir las rutas con o sin slash al final de ellas. https://github.com/ericf/express-slash
+ejecutaremos el comando yarn `` para instalar las dependencias de nuestro proyecto
 
-## Passport
-Passport es un middleware que nos permite establecer diferentes estrategias de autenticación a nuestras aplicaciones. https://github.com/jaredhanson/passport
+## Ejecutar servidor de desarrollo
 
-Puedes encontrar más middlewares populares en el siguiente enlace: http://expressjs.com/en/resources/middleware.html
+en las dependencias que instalamos tenemos **nodemon** el cual nos servira para que nuestro sevridor se refresque cada vez que realizamos un cambio en nuestro codigo.
+
+ejecutamos nuestro servidor con el comando. ` yarn dev `
+
+## Ejecucion de migraciones
+
+Con las dependencias que acabamos de instalar ya instalamos el cli de sequelize, el cual nos ayudara a realizar las migraciones a nuestra base de datos.
+
+para ejecutarlas he creado varios scripts para que sea mas facil (los puedes ver el package.json)
+
+comando para crear una nueva migracion: `yarn migrations:generate`
+
+comando para ejecutar las migraciones: `yarn db:migrate`
+
+comando para eliminar la ultima migracion: `yarn db:migrate:undo`
+
+## En Postman
+
+[API-STORE POSTMAN](https://web.postman.co/workspace/API-STORE~b09dbd66-3b3b-431e-a11d-a37b9d0ceb05)
