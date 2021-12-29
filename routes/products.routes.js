@@ -2,12 +2,14 @@ const express = require('express'),
       router = express.Router(),
       ProductService = require('../services/products.service'),
       validator = require('../midlewares/validator.handler'),
-      { getProduct, createProduct, updatedProduct, deletedProduct } = require('../schemas/product.schema'),
+      { getProduct, createProduct, updatedProduct, deletedProduct, pagination } = require('../schemas/product.schema'),
       service = new ProductService;
 
-router.get('/', async (req, res, next) => {
+router.get('/',
+  validator.validatorHandler(pagination, 'query'),
+  async (req, res, next) => {
   try {
-    const products = await service.find();
+    const products = await service.find(req.query);
     res
       .status(200)
       .json({

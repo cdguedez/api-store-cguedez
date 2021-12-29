@@ -7,7 +7,7 @@ const { Sequelize } = require('sequelize'),
 
 const sequelize = new Sequelize(URI, {
   dialect: `${config.dialect}`,
-  logging: true
+  logging: false
 });
 
 setupModels(sequelize);
