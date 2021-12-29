@@ -5,9 +5,20 @@ const express = require('express'),
       app = express(),
       cors = require('cors'),
       port = process.env.PORT || 3000;
-
 app.use(express.json());
-app.use(cors());
+
+const whiteList = ['http://localhost:5500', 'http://localhost:3000'];
+const options = {
+  origin: (origin, callback) => {
+    if(whiteList.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('not authorized'));
+    }
+  }
+}
+
+app.use(cors(options));
 new RouterApi(app);
 app.use(Middleware.errorLog);
 app.use(Middleware.sqlErrorHamdler);
