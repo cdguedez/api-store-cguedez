@@ -1,7 +1,8 @@
 const config = require('../config/config'),
-      USER = encodeURIComponent(config.dbUser),
-      PASSWORD = encodeURIComponent(config.dbPass),
-      URI = `${config.dialect}://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
+      // USER = encodeURIComponent(config.dbUser),
+      // PASSWORD = encodeURIComponent(config.dbPass),
+      // URI = `${config.dialect}://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
+      URI = config.dbUrl;
 
 module.exports = {
   development: {
