@@ -15,12 +15,12 @@ class ProductService {
   }
 
   async find() {
-    const products = await models.Product.findAll({ include: ['category'] });
+    const products = await models.Product.findAll();
     return products;
   }
 
   async findOne(id) {
-    const product = await models.Product.findByPk(id);
+    const product = await models.Product.findByPk(id, { include: ['category'] });
     if(!product) {
       throw boom.notFound('product not found');
     }
