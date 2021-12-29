@@ -1,71 +1,87 @@
 const express = require('express'),
-      faker = require('faker'),
       router = express.Router(),
-      type = "category"
+      CategoryService = require('../services/categories.service'),
+      validator = require('../midlewares/validator.handler'),
+      { getCategory, createCategory, updateCategory, deleteCategory } = require('../schemas/category.schema'),
+      service = new CategoryService;
 
-router.get('/', (req, res) => {
-  const categories = [];
-  const limit = req.query.size || 10;
-  for(let i = 0; i < limit; i++) {
-    categories.push({
-      type,
-      id: faker.datatype.uuid(),
-        attributes: {
-          name: faker.commerce.department(),
-          description: faker.lorem.sentence(),
-          image: faker.image.imageUrl()
-        }
-    });
+router.get('/', async (req, res, next) => {
+  try {
+    const categories = await service.find()
+    res
+      .status(200)
+      .json({
+        data: categories
+      });
+  } catch (error) {
+    next(error)
   }
-  res.json({
-    data: categories
-  });
 });
 
-router.get('/:id', (req, res) => {
-  res.json({
-    data: {
-      type,
-      id: req.params.id,
-      attributes: {
-        name: faker.commerce.department(),
-        description: faker.lorem.sentence(),
-        image: faker.image.imageUrl()
-      }
-    }
-  });
+router.get('/:id',
+validator.validatorHandler(getCategory, 'params'),
+async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const category = await service.findOne(id);
+    res
+      .status(200)
+      .json({
+        data: category
+      });
+  } catch (error) {
+    next(error)
+  }
 });
 
-router.post('/', (req, res) => {
-  const { body } = req
-  res.json({
-    data: {
-      type,
-      id: faker.datatype.uuid(),
-      attributes: body
-    }
-  })
+router.post('/',
+validator.validatorHandler(createCategory, 'body'),
+async (req, res, next) => {
+  try {
+    const { body } = req
+    const newCategory = await service.create(body)
+    res
+      .status(201)
+      .json({
+        data: newCategory
+      })
+  } catch (error) {
+    next(error)
+  }
 });
 
-router.patch('/:id', (req, res) => {
-  const { body } = req
-  res.json({
-    data: {
-      type,
-      id: req.params.id,
-      attributes: body
-    }
-  })
+router.patch('/:id',
+validator.validatorHandler(getCategory, 'params'),
+validator.validatorHandler(updateCategory, 'body'),
+async (req, res, next) => {
+  try {
+    const body = req.body;
+    const { id } = req.params;
+    const category = await service.update(id, body)
+    res
+      .status(200)
+      .json({
+        data: category
+      })
+  } catch (error) {
+    next(error)
+  }
 });
 
-router.delete('/:id', (req, res) => {
-  const { id } = req.params
-  res.json({
-    data: {
-      type,
-      id
-    }
-  })
+router.delete('/:id',
+validator.validatorHandler(deleteCategory, 'params'),
+async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const category = await service.destroy(id)
+    res
+      .status(200)
+      .json({
+        id: category
+      });
+  } catch (error) {
+    next(error)
+  }
 });
 
 
