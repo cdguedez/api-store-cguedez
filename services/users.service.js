@@ -1,4 +1,5 @@
 const boom = require('@hapi/boom'),
+      bcrypt = require('bcrypt'),
       { models } = require('../libs/sequelize');
 
 class UsersService {
@@ -9,8 +10,13 @@ class UsersService {
   }
 
   async create(data) {
-    const newUser = await models.User.create(data);
-    return newUser
+    const hash = await bcrypt.hash(data.password, 10);
+    const newUser = await models.User.create({
+      ...data,
+      password: hash
+    })
+    delete newUser.dataValues.password;
+    return newUser;
   }
 
   async find() {
