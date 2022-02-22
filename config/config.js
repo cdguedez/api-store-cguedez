@@ -9,7 +9,8 @@ const config = {
   dbName: process.env.DB_NAME,
   dbPort: process.env.DB_PORT,
   dialect: process.env.DB,
-  dbUrl: process.env.CLEARDB_DATABASE_URL
+  dbUrl: process.env.CLEARDB_DATABASE_URL,
+  apiKey: process.env.API_KEY,
 }
 
 module.exports = config;
