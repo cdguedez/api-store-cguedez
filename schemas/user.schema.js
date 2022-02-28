@@ -3,7 +3,7 @@ const Joi = require('joi')
 const id = Joi.number(),
       email = Joi.string().email(),
       userName = Joi.string().min(5).max(20),
-      password = Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+      password = Joi.string().min(8).pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
       role = Joi.string().min(5);
 
 const createUser = Joi.object({

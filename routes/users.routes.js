@@ -3,9 +3,12 @@ const express = require('express'),
       UsersService =require('../services/users.service'),
       validator = require('../midlewares/validator.handler'),
       { createUser, updateUser, getUser, deleteUser } = require('../schemas/user.schema'),
-      service = new UsersService;
+      service = new UsersService,
+      Auth = require('../midlewares/auth.handler');
 
-router.get('/', async (req, res, next) => {
+router.get('/',
+Auth.checkApiKey,
+async (req, res, next) => {
   try {
     const users = await service.find();
     res
