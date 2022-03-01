@@ -44,7 +44,7 @@ const pagination = Joi.object({
     is: Joi.number().integer().required(),
     then: Joi.required()
   })
-});
+})
 
 module.exports = {
   createProduct,

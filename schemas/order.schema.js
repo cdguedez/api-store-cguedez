@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require('joi')
 
 const id = Joi.number().integer(),
       status = Joi.string(),
@@ -9,23 +9,23 @@ const id = Joi.number().integer(),
 
 const getOrder = Joi.object({
   id: id.required()
-});
+})
 
 const createdOrder = Joi.object({
   customerId: customerId.required(),
   status
-});
+})
 
 const updatedOrder = Joi.object({
   status,
   customerId
-});
+})
 
 const addItem = Joi.object({
   orderId: orderId.required(),
   productId:productId.required(),
   amount: amount.required()
-});
+})
 
 module.exports = {
   getOrder,

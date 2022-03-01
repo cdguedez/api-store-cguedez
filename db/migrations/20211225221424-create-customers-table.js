@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 const { CUSTOMERS_TABLE, CustomerSchema } = require('../models/customer.model')
 module.exports = {
@@ -14,10 +14,10 @@ module.exports = {
       updatedAt: CustomerSchema.updatedAt
     }, {
       collate: 'utf8_unicode_ci'
-    });
+    })
   },
 
   down: async (queryInterface) => {
-    await queryInterface.dropTable(CUSTOMERS_TABLE);
+    await queryInterface.dropTable(CUSTOMERS_TABLE)
   }
-};
+}

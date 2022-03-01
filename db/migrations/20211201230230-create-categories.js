@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 const { CATEGORIES_TABLE, CategorySchema } = require('../models/category.model')
 
@@ -12,10 +12,10 @@ module.exports = {
       updatedAt: CategorySchema.updatedAt
     }, {
       collate: 'utf8_unicode_ci'
-    });
+    })
   },
 
   down: async (queryInterface) => {
-    await queryInterface.dropTable(CATEGORIES_TABLE);
+    await queryInterface.dropTable(CATEGORIES_TABLE)
   }
-};
+}

@@ -1,6 +1,6 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
-const ORDERS_TABLE = 'orders';
-const { CUSTOMERS_TABLE } = require('./customer.model');
+const { Model, DataTypes, Sequelize } = require('sequelize')
+const ORDERS_TABLE = 'orders'
+const { CUSTOMERS_TABLE } = require('./customer.model')
 const OrderSchema = {
   id: {
     allowNull: false,
@@ -52,7 +52,7 @@ const OrderSchema = {
 
 class Order extends Model {
   static associate(models) {
-    this.belongsTo(models.Customer, { as: 'customer' });
+    this.belongsTo(models.Customer, { as: 'customer' })
     this.belongsToMany(models.Product, {
       as: 'items',
       through: models.OrderProduct,

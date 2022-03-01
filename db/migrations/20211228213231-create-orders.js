@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-const { ORDERS_TABLE, OrderSchema } = require('../models/order.model');
+const { ORDERS_TABLE, OrderSchema } = require('../models/order.model')
 
 module.exports = {
   up: async (queryInterface) => {
@@ -10,10 +10,10 @@ module.exports = {
       status: OrderSchema.status,
       createdAt: OrderSchema.createdAt,
       updatedAt: OrderSchema.updatedAt,
-    });
+    })
   },
 
   down: async (queryInterface) => {
-    await queryInterface.dropTable(ORDERS_TABLE);
+    await queryInterface.dropTable(ORDERS_TABLE)
   }
-};
+}

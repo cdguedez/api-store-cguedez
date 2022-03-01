@@ -1,6 +1,6 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
+const { Model, DataTypes, Sequelize } = require('sequelize')
 const { CATEGORIES_TABLE } = require('./category.model')
-const PRODUCTS_TABLE = 'products';
+const PRODUCTS_TABLE = 'products'
 const ProductSchema = {
   id: {
     allowNull: false,

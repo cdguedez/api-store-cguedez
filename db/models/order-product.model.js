@@ -1,7 +1,7 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
-const ORDER_PRODUCT_TABLE = 'Orders_Products';
-const { ORDERS_TABLE } = require('./order.model');
-const { PRODUCTS_TABLE } = require('./product.model');
+const { Model, DataTypes, Sequelize } = require('sequelize')
+const ORDER_PRODUCT_TABLE = 'Orders_Products'
+const { ORDERS_TABLE } = require('./order.model')
+const { PRODUCTS_TABLE } = require('./product.model')
 const OrderProductSchema = {
   id: {
     allowNull: false,

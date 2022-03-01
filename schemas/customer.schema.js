@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require('joi')
 
 const id = Joi.number().integer(),
       userId = Joi.number().integer(),
@@ -23,7 +23,7 @@ const createCustomer = Joi.object({
     userName: userName.required(),
     password: password.required()
   })
-});
+})
 
 const updateCsutomer = Joi.object({
   userId: userId.required(),
@@ -31,15 +31,15 @@ const updateCsutomer = Joi.object({
   lastName,
   dateOfBirth,
   gender
-});
+})
 
 const getCustomer = Joi.object({
   id: id.required(),
-});
+})
 
 const deleteCustomer = Joi.object({
   id: id.required(),
-});
+})
 
 module.exports = {
   createCustomer,

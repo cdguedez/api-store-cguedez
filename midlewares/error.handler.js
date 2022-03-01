@@ -1,8 +1,8 @@
-const { ValidationError } = require('sequelize');
+const { ValidationError } = require('sequelize')
 class Middleware {
 
   static errorLog(err, req, res, next) {
-    console.error(err);
+    console.error(err)
     next(err)
   }
 

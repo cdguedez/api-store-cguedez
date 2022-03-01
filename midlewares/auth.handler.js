@@ -3,11 +3,11 @@ const boom = require('@hapi/boom'),
 
 class Auth {
   static checkApiKey(req, res, next) {
-    const apiKey = req.headers['api'];
+    const apiKey = req.headers['api']
     if (!apiKey) { return next(boom.unauthorized('apiKey required')) }
     if (apiKey !== config.apiKey) { return next(boom.unauthorized('Unauthorized')) }
-    return next();
+    return next()
   }
 }
 
-module.exports = Auth;
+module.exports = Auth

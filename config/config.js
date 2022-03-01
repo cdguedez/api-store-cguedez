@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config()
 const config = {
   env: process.env.NODE_ENV || 'dev',
   isProd: process.env.NODE_ENV === 'production',
@@ -13,4 +13,4 @@ const config = {
   apiKey: process.env.API_KEY,
 }
 
-module.exports = config;
+module.exports = config
