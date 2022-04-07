@@ -4,10 +4,10 @@ const express = require('express'),
       validator = require('../midlewares/validator.handler'),
       { createUser, updateUser, getUser, deleteUser } = require('../schemas/user.schema'),
       service = new UsersService,
-      Auth = require('../midlewares/auth.handler')
+      { checkApiKey } = require('../midlewares/auth.handler')
 
 router.get('/',
-Auth.checkApiKey,
+checkApiKey,
 async (req, res, next) => {
   try {
     const users = await service.find()
