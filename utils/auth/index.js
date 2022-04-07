@@ -1,3 +1,5 @@
 const passport = require('passport')
 const LocalStrategy = require('./strategies/local.strategy')
+const githubStrategy = require('./strategies/github.strategy')
 passport.use(LocalStrategy)
+passport.use(githubStrategy)
