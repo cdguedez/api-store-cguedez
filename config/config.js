@@ -11,6 +11,8 @@ const config = {
   dialect: process.env.DB,
   dbUrl: process.env.CLEARDB_DATABASE_URL,
   apiKey: process.env.API_KEY,
+  keyScret: process.env.KEY_SECRET,
+  jwtSecret: process.env.JWT_SECRET,
 }
 
 module.exports = config

@@ -1,5 +1,5 @@
-const { Strategy } = require('passport-github')
+// const { Strategy } = require('passport-github')
 
-const githubStrategy = new Strategy({})
+// const githubStrategy = new Strategy({})
 
-module.export = githubStrategy
+// module.export = githubStrategy
