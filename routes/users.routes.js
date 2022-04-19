@@ -4,7 +4,7 @@ const express = require('express'),
       validator = require('../midlewares/validator.handler'),
       { createUser, updateUser, getUser, deleteUser } = require('../schemas/user.schema'),
       service = new UsersService,
-      { checkApiKey } = require('../midlewares/auth.handler'),
+      { checkApiKey, checkRole } = require('../midlewares/auth.handler'),
       passport = require('passport')
 
 router.get('/',
@@ -40,10 +40,11 @@ async (req, res, next) => {
 
 router.post('/',
 passport.authenticate('jwt', { session: false }),
+checkRole('admin', 'customer'),
 validator.validatorHandler(createUser, 'body'),
 async (req, res, next) => {
   try {
-    const body = req.body
+    const { body } = req
     const newUser = await service.create(body)
     res
       .status(201)
