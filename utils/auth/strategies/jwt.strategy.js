@@ -6,8 +6,6 @@ const options = {
   secretOrKey: config.keyScret,
 }
 
-const jwtStrategy = new Strategy(options, (payload, done) => {
-  return done(null, payload)
-})
+const jwtStrategy = new Strategy(options, (payload, done) => done(null, payload))
 
 module.exports = jwtStrategy
