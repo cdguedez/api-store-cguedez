@@ -2,9 +2,9 @@ const express = require('express'),
       router = express.Router(),
       passport = require('passport'),
       jwt = require('jsonwebtoken'),
-      config = require('./../config/config')
+      config = require('../config/config')
 
-router.post('/',
+router.post('/login',
   passport.authenticate('local', { session: false }),
   async (req, res, next) => {
     try {

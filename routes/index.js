@@ -3,7 +3,7 @@ const express = require('express'),
       categoriesRouter = require('./categories.routes'),
       usersRouter = require('./users.routes'),
       customerRouter = require('./customers.routes'),
-      loginRouter = require('./login.routes'),
+      authRouter = require('./auth.routes'),
       orderRouter = require('./orders.routes')
 
 class RouterApi {
@@ -20,7 +20,7 @@ class RouterApi {
     router.use('/users', usersRouter)
     router.use('/customers', customerRouter)
     router.use('/orders', orderRouter)
-    router.use('/login', loginRouter)
+    router.use('/auth', authRouter)
   }
 
 }
