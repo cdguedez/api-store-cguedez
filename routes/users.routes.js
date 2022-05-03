@@ -3,24 +3,22 @@ const express = require('express'),
       UsersService =require('../services/users.service'),
       validator = require('../midlewares/validator.handler'),
       { createUser, updateUser, getUser, deleteUser } = require('../schemas/user.schema'),
-      service = new UsersService,
-      { checkApiKey, checkRole } = require('../midlewares/auth.handler'),
-      passport = require('passport')
+      service = new UsersService
 
 router.get('/',
-checkApiKey,
-async (req, res, next) => {
-  try {
-    const users = await service.find()
-    res
-      .status(200)
-      .json({
-        data: users
-      })
-  } catch (error) {
-    next(error)
+  async (req, res, next) => {
+    try {
+      const users = await service.find()
+      res
+        .status(200)
+        .json({
+          data: users
+        })
+    } catch (error) {
+      next(error)
+    }
   }
-})
+)
 
 router.get('/:id',
 validator.validatorHandler(getUser, 'params'),
@@ -39,8 +37,6 @@ async (req, res, next) => {
 })
 
 router.post('/',
-passport.authenticate('jwt', { session: false }),
-checkRole('admin', 'customer'),
 validator.validatorHandler(createUser, 'body'),
 async (req, res, next) => {
   try {
