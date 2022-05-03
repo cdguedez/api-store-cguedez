@@ -4,7 +4,7 @@ const id = Joi.number(),
       email = Joi.string().email(),
       userName = Joi.string().min(5).max(20),
       password = Joi.string().min(8),
-      role = Joi.string().min(5)
+      role = Joi.string().valid('admin', 'coordinator', 'customer')
 
 const createUser = Joi.object({
   email: email.required(),
