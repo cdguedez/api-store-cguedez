@@ -1,10 +1,12 @@
 require('dotenv').config()
-const express = require('express'),
-      RouterApi = require('./routes'),
-      Middleware = require('./midlewares/error.handler'),
-      app = express(),
-      cors = require('cors'),
-      port = process.env.PORT || 3000
+
+const express     = require('express')
+const RouterApi   = require('./routes')
+const Middleware  = require('./midlewares/error.handler')
+const app         = express()
+const cors        = require('cors')
+const port        = process.env.PORT || 3000
+
 app.use(express.json())
 
 const whiteList = ['http://localhost:5500']
