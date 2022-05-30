@@ -12,6 +12,10 @@
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:migrate:undo": "npx sequelize-cli db:migrate:undo"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cdguedez/api-store-cguedez.git"
+  },
   "keywords": [
     "node",
     "platzi"
