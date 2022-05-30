@@ -19,30 +19,28 @@
   "author": "Carlos Guedez",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^8.1.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "faker": "^5.5.3",
-    "nodemon": "^2.0.14",
-    "prettier": "^2.4.1"
+    "eslint": "8.16.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-prettier": "4.0.0",
+    "nodemon": "2.0.14",
+    "prettier": "2.4.1"
   },
   "dependencies": {
-    "@hapi/boom": "9.1.4",
+    "@hapi/boom": "10.0.0",
     "bcrypt": "5.0.1",
     "cors": "2.8.5",
-    "dotenv": "10.0.0",
-    "express": "4.17.1",
-    "joi": "17.4.2",
+    "dotenv": "16.0.1",
+    "express": "4.18.1",
+    "joi": "17.6.0",
     "jsonwebtoken": "8.5.1",
     "mysql2": "2.3.3",
-    "passport": "0.5.2",
+    "passport": "0.6.0",
     "passport-github": "1.1.0",
     "passport-jwt": "4.0.0",
     "passport-local": "1.0.0",
-    "pg": "8.7.1",
     "pg-hstore": "2.3.4",
-    "sequelize": "6.12.0-alpha.1",
-    "sequelize-cli": "6.3.0"
+    "sequelize": "6.20.1",
+    "sequelize-cli": "6.4.1"
   },
   "engines": {
     "node": "14.x"
