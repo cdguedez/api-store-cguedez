@@ -48,6 +48,9 @@ class UsersService {
       where: { email },
       attributes: { exclude: ['createdAt', 'updatedAt'] }
     })
+    if(!user) {
+      throw boom.unauthorized('Unauthorized')
+    }
     return user
   }
 

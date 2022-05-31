@@ -15,4 +15,8 @@ const register = Joi.object({
   password: password.required(),
 })
 
-module.exports = { login, register }
+const recovery = Joi.object({
+  email: email.required()
+})
+
+module.exports = { login, register, recovery }
