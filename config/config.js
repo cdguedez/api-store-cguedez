@@ -12,6 +12,10 @@ const config = {
   dbUrl: process.env.CLEARDB_DATABASE_URL,
   apiKey: process.env.API_KEY,
   keyScret: process.env.KEY_SECRET,
+  smtpEmail: process.env.SMTP_EMAIL,
+  smtpPass: process.env.SMTP_PASS,
+  smtpHost: process.env.SMTP_HOST,
+  smtpPort: process.env.SMTP_PORT
 }
 
 module.exports = config
