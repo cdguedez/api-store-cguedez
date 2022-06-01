@@ -26,6 +26,7 @@ async (req, res, next) => {
   try {
     const { id } = req.params
     const user = await service.findOne(id)
+    delete user.dataValues.password
     res
       .status(200)
       .json({

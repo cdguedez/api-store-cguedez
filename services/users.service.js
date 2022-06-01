@@ -34,7 +34,7 @@ class UsersService {
   async findOne(id) {
     const user = await models.User.findOne({
       where: { id },
-      attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
+      attributes: { exclude: ['createdAt', 'updatedAt'] },
       include: { model: Customer, as: 'customer', attributes: { exclude: ['createdAt', 'updatedAt'] } },
     })
     if(!user) {
