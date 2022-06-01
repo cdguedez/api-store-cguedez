@@ -13,7 +13,7 @@ class Middleware {
         error: {
           statusCode: 500,
           message: "internal server error",
-          details: err.stack
+          details: err
         }
       })
   }
