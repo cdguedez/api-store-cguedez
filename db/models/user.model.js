@@ -34,7 +34,7 @@ const UserSchema = {
   recoveryToken: {
     field: 'recovery_token',
     allowNull: true,
-    type: DataTypes.STRING(100)
+    type: DataTypes.STRING
   },
   createdAt: {
     allowNull: false,
