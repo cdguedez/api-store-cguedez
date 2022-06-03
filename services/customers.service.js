@@ -11,10 +11,16 @@ class CustomersService {
 
   async create(data) {
     const hash = await bcrypt.hash(data.user.password, 10)
-    const newCustomer = await models.Customer.create({
+    const newData = {
       ...data,
-      user: { ...data.user,  password: hash }
-    }, { include: ['user'] })
+      user: {
+        ...data.user,
+        password: hash
+      }
+    }
+    const newCustomer = await models.Customer.create(newData,
+      { include: ['user'] }
+    )
     delete newCustomer.dataValues.user.dataValues.password
     return newCustomer
   }

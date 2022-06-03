@@ -27,9 +27,10 @@ router.post('/register',
   async (req, res, next) => {
     try {
       const { body } = req
+      const register = await service.register(body)
       res
         .status(201)
-        .json({ data: body})
+        .json({ data: register})
     } catch (error) {
       next(error)
     }

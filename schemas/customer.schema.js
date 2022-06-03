@@ -22,7 +22,7 @@ const createCustomer = Joi.object({
     email: email.required(),
     userName: userName.required(),
     password: password.required()
-  })
+  }).required()
 })
 
 const updateCsutomer = Joi.object({

@@ -5,6 +5,7 @@ const config = require('./../config/config')
 const userService = require('./users.service')
 const service = new userService()
 const nodemailer = require('nodemailer')
+const { models } = require('../libs/sequelize')
 
 class AuthService {
 
@@ -17,6 +18,20 @@ class AuthService {
     delete user.dataValues.password
     delete user.dataValues.recoveryToken
     return user
+  }
+
+  async register(data) {
+    const hash = await bcrypt.hash(data.user.password, 10)
+    const newData = {
+      ...data,
+      user: {
+        ...data.user,
+        password: hash
+      }
+    }
+    const newCustomer = await models.Customer.create(newData, { include: ['user'] })
+    delete newCustomer.dataValues.user.dataValues.password
+    return newCustomer
   }
 
   signToken(user) {

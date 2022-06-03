@@ -4,13 +4,10 @@ const express = require('express'),
       validator = require('../midlewares/validator.handler'),
       { createCustomer, getCustomer, updateCsutomer, deleteCustomer } = require('../schemas/customer.schema'),
       service = new CustomersService,
-      { checkApiKey, checkRole } = require('../midlewares/auth.handler'),
       passport = require('passport')
 
 router.get('/',
-  checkApiKey,
   passport.authenticate('jwt', { session: false }),
-  checkRole('admin', 'customer'),
   async (req, res, next) => {
     try {
       const customers = await service.find()

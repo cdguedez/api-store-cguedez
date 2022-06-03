@@ -1,8 +1,12 @@
 const Joi = require('joi')
 
-const email = Joi.string().email(),
-userName = Joi.string().min(5).max(20),
-password = Joi.string().min(8)
+const email = Joi.string().email()
+const userName = Joi.string().min(5).max(20)
+const password = Joi.string().min(8)
+const firstName = Joi.string()
+const lastName = Joi.string()
+const dateOfBirth = Joi.date()
+const gender = Joi.string()
 
 const login = Joi.object({
   email: email.required(),
@@ -10,9 +14,18 @@ const login = Joi.object({
 })
 
 const register = Joi.object({
-  email: email.required(),
-  userName: userName.required(),
-  password: password.required(),
+  firstName: firstName.required(),
+  lastName,
+  dateOfBirth,
+  gender,
+  /** With userId */
+  // userId: userId.required()
+  /**With user data */
+  user: Joi.object({
+    email: email.required(),
+    userName: userName.required(),
+    password: password.required()
+  }).required()
 })
 
 const recovery = Joi.object({
