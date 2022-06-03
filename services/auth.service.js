@@ -21,13 +21,17 @@ class AuthService {
   }
 
   async register(data) {
-    const hash = await bcrypt.hash(data.password, 10)
-    const newUser =await  models.User.create({
+    const hash = await bcrypt.hash(data.user.password, 10)
+    const newData = {
       ...data,
-      password: hash
-    })
-    delete newUser.dataValues.password
-    return newUser
+      user: {
+        ...data.user,
+        password: hash
+      }
+    }
+    const newCustomer = await models.Customer.create(newData, { include: ['user'] })
+    delete newCustomer.dataValues.user.dataValues.password
+    return newCustomer
   }
 
   signToken(user) {
