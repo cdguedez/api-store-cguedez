@@ -31,7 +31,8 @@ class AuthService {
     }
     const newCustomer = await models.Customer.create(newData, { include: ['user'] })
     delete newCustomer.dataValues.user.dataValues.password
-    return newCustomer
+    const sendMail = await this.sendRegister(newCustomer.dataValues.user.dataValues.email)
+    return { newCustomer, sendMail }
   }
 
   signToken(user) {
@@ -55,6 +56,18 @@ class AuthService {
     } catch (error) {
       throw boom.unauthorized('unauthorized')
     }
+  }
+
+  async sendRegister(email) {
+    const info = {
+      from: `"Carlos Guedez 👻" ${config.smtpEmail}`, // sender address
+      to: email,
+      subject: `hello, you have registered in api-store-cdguedez`,
+      text: `We welcome you to our virtual store. Automate your purchase orders and increase your profits.`,
+      html: `<main><h1>We welcome you to our virtual store</h1><p>Automate your purchase orders and increase your profits</p></main>`,
+    }
+    const rta = await this.sendMail(info)
+    return rta
   }
 
   async sendRecovery(email) {
