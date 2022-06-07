@@ -57,6 +57,7 @@ class UsersService {
   async update(id, data) {
     const updateUser = await this.findOne(id)
     await updateUser.update(data)
+    delete updateUser.dataValues.password
     return updateUser
   }
 
