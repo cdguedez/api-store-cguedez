@@ -12,7 +12,7 @@ router.post('/login',
   async (req, res, next) => {
     try {
       const { user } = req
-      const auth = service.signToken(user)
+      const auth = service.signTokenAuth(user)
       res
         .status(200)
         .json({ data: auth })
