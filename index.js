@@ -9,7 +9,7 @@ const port        = process.env.PORT || 3000
 
 app.use(express.json())
 
-const whiteList = ['http://localhost:5500']
+const whiteList = ['http://localhost:3000', 'http://localhost:3001']
 const options = {
   origin: (origin, callback) => {
     if(whiteList.includes(origin) || !origin) {
