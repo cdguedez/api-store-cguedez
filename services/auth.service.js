@@ -35,7 +35,7 @@ class AuthService {
     return { newCustomer, sendMail }
   }
 
-  signToken(user) {
+  signTokenAuth(user) {
     const payload = { sub: user.id, role: user.role }
     const token = jwt.sign(payload, config.keyScret)
     return { user, token }
